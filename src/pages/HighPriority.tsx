@@ -6,9 +6,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import RequestDetails from '@/components/RequestDetails';
 import { toast } from 'sonner';
 
+// Define the RequestType to properly handle status
+type RequestStatus = 'pending' | 'approved' | 'rejected';
+
+interface RequestType {
+  id: string;
+  title: string;
+  description: string;
+  venue: string;
+  date: string;
+  time: string;
+  requestedBy: string;
+  status: RequestStatus;
+  facultyRecommendation: boolean;
+}
+
 const HighPriority: React.FC = () => {
   // Mock data for high priority requests (those with faculty recommendation)
-  const [highPriorityRequests, setHighPriorityRequests] = useState([
+  const [highPriorityRequests, setHighPriorityRequests] = useState<RequestType[]>([
     {
       id: '1',
       title: 'Tech Club Weekly Meeting',
@@ -17,7 +32,7 @@ const HighPriority: React.FC = () => {
       date: 'May 12, 2025',
       time: '15:45 - 17:15',
       requestedBy: 'John Doe (Student)',
-      status: 'pending' as const,
+      status: 'pending',
       facultyRecommendation: true
     },
     {
@@ -28,7 +43,7 @@ const HighPriority: React.FC = () => {
       date: 'May 25, 2025',
       time: '17:00 - 20:00',
       requestedBy: 'Cultural Committee',
-      status: 'pending' as const,
+      status: 'pending',
       facultyRecommendation: true
     },
     {
@@ -39,13 +54,13 @@ const HighPriority: React.FC = () => {
       date: 'May 18, 2025',
       time: '11:30 - 13:00',
       requestedBy: 'Prof. Williams',
-      status: 'pending' as const,
+      status: 'pending',
       facultyRecommendation: true
     }
   ]);
 
   const handleStatusChange = (id: string, status: 'approved' | 'rejected', comment: string) => {
-    // Update high priority requests
+    // Update high priority requests with proper type handling
     setHighPriorityRequests(highPriorityRequests.map(request => 
       request.id === id ? { ...request, status } : request
     ));

@@ -7,11 +7,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RequestDetails from '@/components/RequestDetails';
 import { toast } from 'sonner';
 
+// Define the RequestType to properly handle status
+type RequestStatus = 'pending' | 'approved' | 'rejected';
+
+interface RequestType {
+  id: string;
+  title: string;
+  description: string;
+  venue: string;
+  date: string;
+  time: string;
+  requestedBy: string;
+  status: RequestStatus;
+  facultyRecommendation?: boolean;
+}
+
 const RequestApproval: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('ltcr');
   
-  // Mock data for LT/CR booking requests
-  const [ltcrRequests, setLtcrRequests] = useState([
+  // Mock data for LT/CR booking requests with properly typed status
+  const [ltcrRequests, setLtcrRequests] = useState<RequestType[]>([
     {
       id: '1',
       title: 'Database Systems Lecture',
@@ -20,7 +35,7 @@ const RequestApproval: React.FC = () => {
       date: 'May 10, 2025',
       time: '09:45 - 11:15',
       requestedBy: 'Prof. Smith',
-      status: 'pending' as const
+      status: 'pending'
     },
     {
       id: '2',
@@ -30,7 +45,7 @@ const RequestApproval: React.FC = () => {
       date: 'May 12, 2025',
       time: '15:45 - 17:15',
       requestedBy: 'John Doe (Student)',
-      status: 'pending' as const,
+      status: 'pending',
       facultyRecommendation: true
     },
     {
@@ -41,12 +56,12 @@ const RequestApproval: React.FC = () => {
       date: 'May 15, 2025',
       time: '14:00 - 17:15',
       requestedBy: 'Jane Smith (Student)',
-      status: 'pending' as const
+      status: 'pending'
     }
   ]);
   
   // Mock data for Event booking requests
-  const [eventRequests, setEventRequests] = useState([
+  const [eventRequests, setEventRequests] = useState<RequestType[]>([
     {
       id: '4',
       title: 'Annual Tech Symposium',
@@ -55,7 +70,7 @@ const RequestApproval: React.FC = () => {
       date: 'May 20, 2025',
       time: '09:00 - 18:00',
       requestedBy: 'Computer Science Department',
-      status: 'pending' as const
+      status: 'pending'
     },
     {
       id: '5',
@@ -65,18 +80,18 @@ const RequestApproval: React.FC = () => {
       date: 'May 25, 2025',
       time: '17:00 - 20:00',
       requestedBy: 'Cultural Committee',
-      status: 'pending' as const,
+      status: 'pending',
       facultyRecommendation: true
     }
   ]);
 
   const handleStatusChange = (id: string, status: 'approved' | 'rejected', comment: string) => {
-    // Update LT/CR requests
+    // Update LT/CR requests with proper type handling
     setLtcrRequests(ltcrRequests.map(request => 
       request.id === id ? { ...request, status } : request
     ));
     
-    // Update Event requests
+    // Update Event requests with proper type handling
     setEventRequests(eventRequests.map(request => 
       request.id === id ? { ...request, status } : request
     ));
