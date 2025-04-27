@@ -10,19 +10,43 @@ interface AuthFormProps {
   onSuccess?: (userType: 'admin' | 'user') => void;
 }
 
+type AuthUser = {
+  email: string;
+  name: string;
+  type: 'admin' | 'user';
+};
+
+const AUTHORIZED_USERS: AuthUser[] = [
+  {
+    email: 'xyz@example.com',
+    name: 'Student_1',
+    type: 'user'
+  },
+  {
+    email: 'fac@example.com',
+    name: 'Faculty_1',
+    type: 'admin'
+  }
+];
+
 const AuthForm: React.FC<AuthFormProps> = ({ onSuccess }) => {
-  const [userType, setUserType] = useState<'admin' | 'user'>('user');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // This would normally validate credentials against an API
-    // For demo purposes, we'll just simulate a successful login
-    toast.success(`Logged in successfully as ${userType}`);
-    if (onSuccess) {
-      onSuccess(userType);
+    
+    const user = AUTHORIZED_USERS.find(user => user.email.toLowerCase() === email.toLowerCase());
+    
+    if (user) {
+      toast.success(`Welcome back, ${user.name}!`);
+      if (onSuccess) {
+        onSuccess(user.type);
+      } else {
+        navigate(`/dashboard/${user.type}`);
+      }
     } else {
-      navigate(`/dashboard/${userType}`);
+      toast.error('Access denied. Please check your email.');
     }
   };
 
@@ -37,32 +61,15 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSuccess }) => {
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium">Email</label>
-            <Input id="email" placeholder="your@email.com" className="auth-input" required />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">Password</label>
-            <Input id="password" type="password" placeholder="••••••••" className="auth-input" required />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="userType" className="text-sm font-medium">Login as</label>
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                type="button"
-                variant={userType === 'user' ? 'default' : 'outline'}
-                onClick={() => setUserType('user')}
-                className="w-full"
-              >
-                User
-              </Button>
-              <Button
-                type="button"
-                variant={userType === 'admin' ? 'default' : 'outline'}
-                onClick={() => setUserType('admin')}
-                className="w-full"
-              >
-                Admin
-              </Button>
-            </div>
+            <Input 
+              id="email" 
+              type="email" 
+              placeholder="your@email.com" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input" 
+              required 
+            />
           </div>
           <Button type="submit" className="w-full">Login</Button>
         </form>
