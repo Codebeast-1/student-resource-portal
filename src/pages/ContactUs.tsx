@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -9,26 +8,24 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-
 const ContactUs: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState('');
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validation
     if (!name || !email || !subject || !message || !category) {
       toast.error('Please fill out all fields');
       return;
     }
-    
+
     // Success
     toast.success('Your message has been sent');
-    
+
     // Reset form
     setName('');
     setEmail('');
@@ -36,9 +33,7 @@ const ContactUs: React.FC = () => {
     setMessage('');
     setCategory('');
   };
-
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <Header userType="user" />
       
       <div className="flex-1 flex">
@@ -67,38 +62,19 @@ const ContactUs: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
-                        <Input 
-                          id="name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Your name"
-                          required
-                        />
+                        <Input id="name" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" required />
                       </div>
                       
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input 
-                          id="email"
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Your email address"
-                          required
-                        />
+                        <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email address" required />
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="subject">Subject</Label>
-                        <Input 
-                          id="subject"
-                          value={subject}
-                          onChange={(e) => setSubject(e.target.value)}
-                          placeholder="Message subject"
-                          required
-                        />
+                        <Input id="subject" value={subject} onChange={e => setSubject(e.target.value)} placeholder="Message subject" required />
                       </div>
                       
                       <div className="space-y-2">
@@ -119,14 +95,7 @@ const ContactUs: React.FC = () => {
                     
                     <div className="space-y-2">
                       <Label htmlFor="message">Message</Label>
-                      <Textarea 
-                        id="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Your message"
-                        rows={6}
-                        required
-                      />
+                      <Textarea id="message" value={message} onChange={e => setMessage(e.target.value)} placeholder="Your message" rows={6} required />
                     </div>
                   </CardContent>
                   
@@ -148,12 +117,12 @@ const ContactUs: React.FC = () => {
                 <CardContent className="space-y-4">
                   <div>
                     <h3 className="font-medium">Email</h3>
-                    <p className="text-muted-foreground">support@digitalpermission.edu</p>
+                    <p className="text-muted-foreground">support@xyz</p>
                   </div>
                   
                   <div>
                     <h3 className="font-medium">Phone</h3>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-muted-foreground">+91-XXXXX-XXXXX</p>
                   </div>
                   
                   <div>
@@ -204,8 +173,6 @@ const ContactUs: React.FC = () => {
           </div>
         </main>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ContactUs;
