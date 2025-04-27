@@ -1,13 +1,10 @@
-
 import React from 'react';
 import AuthForm from '@/components/AuthForm';
-
 const Login: React.FC = () => {
-  return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+  return <div className="min-h-screen flex flex-col md:flex-row">
       <div className="md:w-1/2 bg-brand-900 text-white p-8 flex flex-col justify-center">
         <div className="max-w-md mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Digital Permission System</h1>
+          <h1 className="text-3xl font-bold mb-6 text-center">SmartCampus</h1>
           <p className="text-lg mb-8">
             Streamline booking process for college halls and event spaces. Easily manage permissions and approvals.
           </p>
@@ -55,8 +52,6 @@ const Login: React.FC = () => {
       <div className="md:w-1/2 p-8 flex items-center justify-center">
         <AuthForm />
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Login;
