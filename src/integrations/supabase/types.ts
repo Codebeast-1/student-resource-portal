@@ -9,7 +9,72 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      login_history: {
+        Row: {
+          id: string
+          login_timestamp: string | null
+          name: string
+          user_email: string
+          user_type: string
+        }
+        Insert: {
+          id?: string
+          login_timestamp?: string | null
+          name: string
+          user_email: string
+          user_type: string
+        }
+        Update: {
+          id?: string
+          login_timestamp?: string | null
+          name?: string
+          user_email?: string
+          user_type?: string
+        }
+        Relationships: []
+      }
+      permission_requests: {
+        Row: {
+          admin_response: string | null
+          created_at: string | null
+          event_date: string
+          id: string
+          request_type: string
+          requester_email: string
+          requester_name: string
+          status: string | null
+          time_slot: string
+          updated_at: string | null
+          venue: string
+        }
+        Insert: {
+          admin_response?: string | null
+          created_at?: string | null
+          event_date: string
+          id?: string
+          request_type: string
+          requester_email: string
+          requester_name: string
+          status?: string | null
+          time_slot: string
+          updated_at?: string | null
+          venue: string
+        }
+        Update: {
+          admin_response?: string | null
+          created_at?: string | null
+          event_date?: string
+          id?: string
+          request_type?: string
+          requester_email?: string
+          requester_name?: string
+          status?: string | null
+          time_slot?: string
+          updated_at?: string | null
+          venue?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
